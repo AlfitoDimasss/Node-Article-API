@@ -1,0 +1,29 @@
+{
+  "name": "hapi-view",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.2",
+    "@hapi/vision": "^7.0.1",
+    "handlebars": "^4.7.7",
+    "nanoid": "^3.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "./src/data/articles.json"
+    ],
+    "watch": [
+      "./src/views/index.html"
+    ]
+  }
+}

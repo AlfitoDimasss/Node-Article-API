@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
+    :root {
+      --primary: #1B191A;
+      --secondary: #f7f7ff;
+      --orange: #EAB049;
+      --font-primary: 'Quicksand', sans-serif;
+      --font-code: 'Courier Prime', monospace;
+      --white: #fff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      color: var(--primary);
+      font-family: var(--font-primary);
+      font-weight: 500;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      padding: 32px;
+      flex: 1;
+    }
+
+    .nav-bar {
+      display: none;
+    }
+
+    .content__header {
+      font-weight: 600;
+      font-size: 1.75em;
+      margin-bottom: 32px;
+    }
+
+    .base-url-wrapper h3 {
+      font-size: 1.5em;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .base-url-wrapper__link {
+      margin-bottom: 32px;
+    }
+
+    .base-url-wrapper__link a {
+      font-size: 0.9em;
+      font-weight: 600;
+      color: var(--orange);
+    }
+
+    .endpoints h3 {
+      font-size: 1.5em;
+      margin-bottom: 32px;
+      font-weight: 600;
+    }
+
+    .endpoint h5 {
+      font-size: 1.2em;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    .endpoint__desc {
+      font-size: 1em;
+      border-left: 5px solid var(--orange);
+      padding: 4px 18px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.5);
+      margin-bottom: 18px;
+    }
+
+    .endpoint__detail {
+      margin-left: 36px;
+    }
+
+    .endpoint__detail li {
+      margin-bottom: 8px;
+      font-size: 0.8em;
+    }
+
+    .endpoint__detail span {
+      background-color: var(--secondary);
+      color: var(--orange);
+      padding: 2px 4px;
+      font-weight: 500;
+      font-family: var(--font-code);
+    }
+
+    .endpoint__response {
+      overflow: scroll;
+      font-size: 0.75em;
+      background-color: var(--secondary);
+      padding: 8px;
+      margin-bottom: 32px;
+    }
+
+    .endpoint__response__second-indent {
+      text-indent: 0.5cm;
+    }
+
+    .endpoint__response__third-indent {
+      text-indent: 1cm;
+    }
+
+    .endpoint__response__fourth-indent {
+      text-indent: 1.5cm;
+      white-space: nowrap;
+    }
+
+    .endpoint__response p {
+      font-family: var(--font-code);
+
+    }
+
+    footer {
+      background-color: var(--primary);
+      padding: 16px;
+    }
+
+    footer p {
+      color: var(--white);
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.9em;
+    }
+
+    @media screen and (min-width: 768px) {
+      .wrapper {
+        display: flex;
+        gap: 7%;
+      }
+
+      .nav-bar {
+        display: block;
+        width: 23%;
+
+      }
+
+      .nav-bar ul {
+        list-style-type: none;
+        position: sticky;
+        top: 0;
+      }
+
+      .nav-bar ul li a:hover {
+        color: var(--orange);
+      }
+
+      .nav-bar ul li {
+        font-size: 0.8em;
+        margin-bottom: 8px;
+      }
+
+      .nav-bar__brand a {
+        font-size: 1em;
+      }
+
+      .nav-bar__link__inner {
+        text-indent: 0.5cm;
+      }
+
+      .nav-bar__link__inner a {
+        font-size: 0.8em;
+      }
+
+      .nav-bar ul li a {
+        text-decoration: none;
+      }
+
+      .content {
+        width: 68%;
+      }
+
+      .active {
+        border-right: 5px solid var(--orange);
+      }
+    }
+
+    @media screen and (min-width: 1280px) {
+      .wrapper {
+        max-width: 1280px;
+        margin: 0 auto;
+        gap: 5%;
+      }
+
+      .nav-bar ul li {
+        font-size: 0.9em;
+      }
+
+      .nav-bar__brand a {
+        font-size: 1.1em;
+      }
+
+      .nav-bar__link__inner a {
+        font-size: 0.9em;
+      }
+
+      .nav-bar {
+        width: 20%;
+      }
+
+      .content {
+        width: 75%;
+      }
+    }
+  </style>
+
+  <title>EatPedia - Article API Documentation</title>
+</head>
+
+<body>
+  <main>
+    <div class="wrapper">
+      <nav class="nav-bar">
+        <ul>
+          <li class="nav-bar__brand"><a href="#title">EatPedia - Article API</a></li>
+          <li class="nav-bar__link"><a href="#baseUrl">Base URL</a></li>
+          <li>Endpoints</li>
+          <li class="nav-bar__link__inner"><a href="#getArticle">Get All Article</a></li>
+          <li class="nav-bar__link__inner"><a href="#addArticle">Add Article</a></li>
+          <li class="nav-bar__link__inner"><a href="#editArticle">Edit Article</a></li>
+          <li class="nav-bar__link__inner"><a href="#deleteArticle">Delete Article</a></li>
+        </ul>
+      </nav>
+      <div class="content">
+        <h1 class="content__header" id="title">EatPedia - Article API</h1>
+        <div class="base-url-wrapper" id="base-url">
+          <h3>Base URL</h3>
+          <p class="base-url-wrapper__link"><a href="">https://eatpedia-article-api.up.railway.app</a></p>
+        </div>
+        <div class="endpoints">
+          <h3>Endpoints</h3>
+          <div class="endpoint" id="getArticle">
+            <h5>Get All Article</h5>
+            <p class="endpoint__desc">Mendapatkan semua artikel</p>
+            <ul class="endpoint__detail">
+              <li>URL: <span>/articles</span></li>
+              <li>Method: <span>GET</span></li>
+              <li>Response:</li>
+            </ul>
+            <div class="endpoint__response">
+              <p class="endpoint__response__first-indent">{</p>
+              <p class="endpoint__response__second-indent">"status": success</p>
+              <p class="endpoint__response__second-indent">"total": 5</p>
+              <p class="endpoint__response__second-indent">"articles": [</p>
+              <p class="endpoint__response__third-indent">{</p>
+              <div class="endpoint__response__fourth-indent">
+                <p>"id": "rqdv5juczeskfw1e",</p>
+                <p>"title": "Viral, Restoran Malaysia Buat Ramen Durian 'Se-Kulit-kulitnya'",</p>
+                <p>"image": "https://akcdn.detik.net.id/visual/2023/05/22/durian-ramen_169.png?w=650&q=90",</p>
+                <p>"link":
+                  "https://www.cnnindonesia.com/gaya-hidup/20230522113450-262-952346/viral-restoran-malaysia-buat-ramen-durian-se-kulit-kulitnya",
+                </p>
+                <p>"description": "Ramen pada umumnya disajikan dalam mangkuk. Namun, restoran Jepang di Malaysia
+                  menyajikan ramen dalam durian utuh lengkap dengan daging buah tersebut.",</p>
+                <p>"channel": "cnn",</p>
+                <p>"insertedAt": "2023-05-25T14:17:39.835Z",</p>
+                <p>"updatedAt": "2023-05-25T14:17:39.835Z"</p>
+              </div>
+              <p class="endpoint__response__third-indent">},</p>
+              <p class="endpoint__response__third-indent">{</p>
+              <div class="endpoint__response__fourth-indent">
+                <p>"id": "rqdv5juczeskfw1e",</p>
+                <p>"title": "Viral, Restoran Malaysia Buat Ramen Durian 'Se-Kulit-kulitnya'",</p>
+                <p>"image": "https://akcdn.detik.net.id/visual/2023/05/22/durian-ramen_169.png?w=650&q=90",</p>
+                <p>"link":
+                  "https://www.cnnindonesia.com/gaya-hidup/20230522113450-262-952346/viral-restoran-malaysia-buat-ramen-durian-se-kulit-kulitnya",
+                </p>
+                <p>"description": "Ramen pada umumnya disajikan dalam mangkuk. Namun, restoran Jepang di Malaysia
+                  menyajikan ramen dalam durian utuh lengkap dengan daging buah tersebut.",</p>
+                <p>"channel": "cnn",</p>
+                <p>"insertedAt": "2023-05-25T14:17:39.835Z",</p>
+                <p>"updatedAt": "2023-05-25T14:17:39.835Z"</p>
+              </div>
+              <p class="endpoint__response__third-indent">},</p>
+              <p class="endpoint__response__third-indent">...</p>
+              <p class="endpoint__response__second-indent">]</p>
+              <p class="endpoint__response__first-indent">}</p>
+            </div>
+          </div>
+          <div class="endpoint" id="addArticle">
+            <h5>Add Article</h5>
+            <p class="endpoint__desc">Menambahkan artikel</p>
+            <ul class="endpoint__detail">
+              <li>URL: <span>/articles</span></li>
+              <li>Method: <span>POST</span></li>
+              <li>Response:</li>
+            </ul>
+            <div class="endpoint__response">
+              <p class="endpoint__response__first-indent">{</p>
+              <p class="endpoint__response__second-indent">"status": success</p>
+              <p class="endpoint__response__second-indent">"message": Artikel berhasil ditambahkan</p>
+              <p class="endpoint__response__second-indent">"data": {</p>
+              <div class="endpoint__response__third-indent">
+                <p>"id": "rqdv5juczeskfw1e",</p>
+              </div>
+              <p class="endpoint__response__second-indent">}</p>
+              <p class="endpoint__response__first-indent">}</p>
+            </div>
+          </div>
+          <div class="endpoint" id="editArticle">
+            <h5>Edit Article</h5>
+            <p class="endpoint__desc">Memperbarui detail artikel</p>
+            <ul class="endpoint__detail">
+              <li>URL: <span>/articles/{id}</span></li>
+              <li>Method: <span>PUT</span></li>
+              <li>Response:</li>
+            </ul>
+            <div class="endpoint__response">
+              <p class="endpoint__response__first-indent">{</p>
+              <p class="endpoint__response__second-indent">"status": success</p>
+              <p class="endpoint__response__second-indent">"message": Artikel berhasil diperbarui</p>
+              <p class="endpoint__response__first-indent">}</p>
+            </div>
+          </div>
+          <div class="endpoint" id="deleteArticle">
+            <h5>Delete Article</h5>
+            <p class="endpoint__desc">Menghapus artikel</p>
+            <ul class="endpoint__detail">
+              <li>URL: <span>/articles/{id}</span></li>
+              <li>Method: <span>DELETE</span></li>
+              <li>Response:</li>
+            </ul>
+            <div class="endpoint__response">
+              <p class="endpoint__response__first-indent">{</p>
+              <p class="endpoint__response__second-indent">"status": success</p>
+              <p class="endpoint__response__second-indent">"message": Artikel berhasil dihapus</p>
+              <p class="endpoint__response__first-indent">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>Copyright EatPedia 2023. All RIghts Reserved</p>
+  </footer>
+
+  <script>
+    const header = document.querySelector('.nav-bar__brand');
+    const baseUrl = document.querySelector('.nav-bar__link');
+    const getArticle = document.getElementsByClassName('nav-bar__link__inner')[0];
+    const addArticle = document.getElementsByClassName('nav-bar__link__inner')[1];
+    const editArticle = document.getElementsByClassName('nav-bar__link__inner')[2];
+    const deleteArticle = document.getElementsByClassName('nav-bar__link__inner')[3];
+
+    const addActive = (target) => {
+      target.classList.add('active');
+    }
+
+    const removeActive = (target) => {
+      target.classList.remove('active');
+    }
+
+    window.addEventListener('scroll', (event) => {
+      let scroll = this.scrollY;
+      if (scroll < 91) {
+        addActive(header);
+        removeActive(baseUrl)
+        removeActive(getArticle)
+        removeActive(addArticle)
+        removeActive(editArticle)
+        removeActive(deleteArticle)
+      }
+
+      if (scroll >= 62) {
+        removeActive(header);
+        addActive(baseUrl)
+        removeActive(getArticle)
+        removeActive(addArticle)
+        removeActive(editArticle)
+        removeActive(deleteArticle)
+      }
+
+      if (scroll >= 225) {
+        removeActive(header);
+        removeActive(baseUrl)
+        addActive(getArticle)
+        removeActive(addArticle)
+        removeActive(editArticle)
+        removeActive(deleteArticle)
+      }
+
+      if (scroll >= 390) {
+        removeActive(header);
+        removeActive(baseUrl)
+        removeActive(getArticle)
+        addActive(addArticle)
+        removeActive(editArticle)
+        removeActive(deleteArticle)
+      }
+
+      if (scroll >= 836) {
+        removeActive(header);
+        removeActive(baseUrl)
+        removeActive(getArticle)
+        removeActive(addArticle)
+        removeActive(editArticle)
+        addActive(deleteArticle)
+      }
+    })
+  </script>
+</body>
+
+</html>
